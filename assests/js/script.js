@@ -1,5 +1,5 @@
 var currentDateEl = document.querySelector("#currentDay");
-var textArea9El = document.querySelector("#nine");
+var button9 = document.querySelector("#nineButton");
 
 
 
@@ -64,12 +64,26 @@ var updateHour = function() {
     }
 }
 
+var saveTask = function(event) {
+    var targetEl = event.target;
+    hourID = targetEl.getAttribute("data-hour");
+    console.log(hourID);
+
+    textInfoEl = document.querySelector("#" + hourID);
+    localStorage.setItem(hourID, textInfoEl.value);
+}
+
+// button9.addEventListener("click", saveTask());
+$("button").click(saveTask);
+
+
+
+
 
 window.onload = function() {
     // get the current time/date
     var currentTime = moment();
     // Display the current date 
     currentDateEl.textContent = currentTime.format("dddd, MMMM Do");
-    console.log(currentHour);
     updateHour();
 }
