@@ -1,11 +1,18 @@
 var currentDateEl = document.querySelector("#currentDay");
-var button9 = document.querySelector("#nineButton");
 
 
 
 
+// gets the curront hour in military time 
 var currentHour = moment().format("H");
     
+
+// function that color codes the daily planner
+// I know there must be an easier way to do this, but running out of time and this works
+// Sets all of the blocks to being in the future
+// goes down each block to see if it is the same time or in the past then chagnes the class to 
+// mactch after removing whatever old class is present.  removes all classes in case this loads in the 
+// middle of the work day
 var updateHour = function() {
     $("textarea").addClass("col-9 future");
 
@@ -64,6 +71,8 @@ var updateHour = function() {
     }
 }
 
+
+// saves the text area informatoin to local storage under the hour it is entered in
 var saveTask = function(event) {
     var targetEl = event.target;
     hourID = targetEl.getAttribute("data-hour");
@@ -73,13 +82,13 @@ var saveTask = function(event) {
     localStorage.setItem(hourID, textInfoEl.value);
 }
 
-// button9.addEventListener("click", saveTask());
-$("button").click(saveTask);
 
 
+// event listener for when a save button is clicked 
+$(".saveBtn").click(saveTask);
 
 
-
+// Function will start as soon as page is loaded
 window.onload = function() {
     // get the current time/date
     var currentTime = moment();
