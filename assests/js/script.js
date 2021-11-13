@@ -5,7 +5,7 @@ var currentDateEl = document.querySelector("#currentDay");
 
 // gets the curront hour in military time 
 var currentHour = moment().format("H");
-    
+var currentDay = moment().format("dddd");
 
 // function that color codes the daily planner
 // I know there must be an easier way to do this, but running out of time and this works
@@ -76,13 +76,35 @@ var updateHour = function() {
 var saveTask = function(event) {
     var targetEl = event.target;
     hourID = targetEl.getAttribute("data-hour");
-    console.log(hourID);
 
     textInfoEl = document.querySelector("#" + hourID);
     localStorage.setItem(hourID, textInfoEl.value);
+    localStorage.setItem("day", currentDay);
 }
 
+var compareDay = function() {
+    // if it is a new day that what was stored in local storage, then clear the scheduler
+    var storedDay = localStorage.getItem("day");
+    if (currentDay == storedDay) {
+        return;
+    } else {
+        localStorage.setItem("nine", "");
+        localStorage.setItem("ten", "");
+        localStorage.setItem("eleven", "");
+        localStorage.setItem("twelve", "");
+        localStorage.setItem("one", "");
+        localStorage.setItem("two", "");
+        localStorage.setItem("three", "");
+        localStorage.setItem("four", "");
+        localStorage.setItem("five", "");
+        localStorage.setItem("day", currentDay);
+    }
+}
+
+
 var loadSchedule = function() {
+    // it would probably be best to store all this in an array, but having issues
+    // retreiving from the array and running out of time.
     $("#nine").val(localStorage.getItem("nine"));
     $("#ten").val(localStorage.getItem("ten"));
     $("#eleven").val(localStorage.getItem("eleven"));
@@ -93,6 +115,8 @@ var loadSchedule = function() {
     $("#four").val(localStorage.getItem("four"));
     $("#five").val(localStorage.getItem("five"));
 }
+
+
 
 
 // event listener for when a save button is clicked 
@@ -106,5 +130,9 @@ window.onload = function() {
     // Display the current date 
     currentDateEl.textContent = currentTime.format("dddd, MMMM Do");
     updateHour();
+    compareDay();
     loadSchedule();
+    
 }
+
+setInterval(updateHour, 900000);
