@@ -82,6 +82,17 @@ var saveTask = function(event) {
     localStorage.setItem(hourID, textInfoEl.value);
 }
 
+var loadSchedule = function() {
+    $("#nine").val(localStorage.getItem("nine"));
+    $("#ten").val(localStorage.getItem("ten"));
+    $("#eleven").val(localStorage.getItem("eleven"));
+    $("#twelve").val(localStorage.getItem("twelve"));
+    $("#one").val(localStorage.getItem("one"));
+    $("#two").val(localStorage.getItem("two"));
+    $("#three").val(localStorage.getItem("three"));
+    $("#four").val(localStorage.getItem("four"));
+    $("#five").val(localStorage.getItem("five"));
+}
 
 
 // event listener for when a save button is clicked 
@@ -95,4 +106,5 @@ window.onload = function() {
     // Display the current date 
     currentDateEl.textContent = currentTime.format("dddd, MMMM Do");
     updateHour();
+    loadSchedule();
 }
